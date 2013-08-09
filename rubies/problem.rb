@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'json'
 
-require 'rubygems'
-require 'json'
+
 
 
 #interface Problem {
