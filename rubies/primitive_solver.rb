@@ -17,4 +17,7 @@ File.open('metadata.txt', 'w') do |f|
   f.puts resp.body
   
 end
+
+@arr = Problem.array_from_json(resp.body)
  
+p @arr.keep_if{|problem| problem.solved }.count
