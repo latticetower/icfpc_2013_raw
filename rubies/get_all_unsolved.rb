@@ -83,11 +83,12 @@ p @arr.size
               break
             end
             sleep(3)
-          end
+          end#end each
 
-          end
-        end 
-                 #opsize >0
+          end#end perm
+        end #end if
+             
+                   #opsize >0
           if @op1.size ==1
             ['x', '1', '0'].repeated_permutation(2) do |perm|
               [ "(lambda (x) (#{@op2[0]} (#{@op1[0]} (#{@op1[0]} #{perm[0]})) #{perm[1]}))",
@@ -95,34 +96,26 @@ p @arr.size
                "(lambda (x) (#{@op1[0]} (#{@op2[0]} #{perm[0]} (#{@op1[0]} #{perm[1]}))))",
                "(lambda (x) (#{@op1[0]} (#{@op1[0]} (#{@op2[0]} #{perm[0]} #{perm[1]}))))"].each do |exp|
                 p exp
-                result = basic_guess(problem.id, exp)
-            if result!="200"
-              puts 'ERROR ERROR'
-              puts problem.id
-              
-              break
-            end
-            sleep(3)
-               end
-            end
+                #result = basic_guess(problem.id, exp)
+            #if result!="200"
+            #  puts 'ERROR ERROR'
+            #  puts problem.id
+            #  
+            #  break
+            #end
+            #sleep(3)
+               end#each
+            end #perm
+              end  #if
             #end opsize
-      end
+      end   #if problem.operators.size == 2 && problem.size == 6
+  
 ##another
-
-    
-      #['x', '1', '0'].permutation(2) do |perm|
-        #exp2 = "(lambda (x) (#{@op2} #{perm.join(' ('+ @op1.to_s + ' ')})))"
-        #exp = "(lambda (x) (#{@op1} (#{@op2} #{perm.join(' ')})))"
-        #p exp
-        #result = basic_guess(problem.id, exp)
-        #if result!="200"
-        #  puts 'ERROR ERROR'
-        #  puts problem.id
-        #  break
-       # end
-      #sleep(5)
-     # end
+if  problem.size == 6 && problem.operators.size ==3
+      p "solving #{problem.id}"
+    p "operators: #{problem.operators} #{problem.time_left} #{problem.size} #{problem.solved} #{problem.time_left}"
     end
+    
 
     #
   end
