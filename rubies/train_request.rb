@@ -7,6 +7,7 @@ class TrainRequest
     @size = size
     @operators = operators
   end
+  
   def to_json
     {'size' => @size, 'operators' => @operators}.to_json
   end

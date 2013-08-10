@@ -13,7 +13,7 @@ require 'json'
 #  }
 class Problem 
   attr_reader  :id, :size, :operators, :solved, :time_left
-  def initialize(id, size, operators, solved, time_left)
+  def initialize(id, size, operators, solved = false, time_left = nil)
     @id = id
     @size = size
     @operators = operators

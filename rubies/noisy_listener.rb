@@ -5,6 +5,18 @@ require "./train_request"
 require "./training_problem"
 require "./guess"
 
+def request_train_problem(size = 3, ops = '')
+  h = Net::HTTP.new('icfpc2013.cloudapp.net')
+  tr = TrainRequest.new(size, ops)
+  resp = h.post('/train?auth=00306ooBUr4BvTjTrWJJyZfHXbwBVU2kLk1cipuAvpsH1H', tr.to_json )
+  puts "Code = #{resp.code}"
+  puts "Message = #{resp.message}"
+  puts "returns = #{resp.body}"
+  tr2 = TrainingProblem.from_json(resp.body)
+  yield tr2 if block_given?
+  tr2
+end
+
 def basic_training
   h = Net::HTTP.new('icfpc2013.cloudapp.net')
   tr = TrainRequest.new(3, '')
