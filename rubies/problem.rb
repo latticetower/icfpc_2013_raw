@@ -34,6 +34,8 @@ class Problem
     obj_data = JSON.load str
     arr = Array.new 
     obj_data.each do |obj|
+       arr << self.new(obj['id'], obj['size'], obj['operators'], obj['solved'], 
+        obj['timeLeft'])  if ops.nil? && (obj['size'] == size || size.nil?) # && (obj['solved'].nil? || !obj['solved'])
       if  (obj['size'] == size && (ops & obj['operators'] == obj['operators']))
       arr << self.new(obj['id'], obj['size'], obj['operators'], obj['solved'], 
         obj['timeLeft']) 
