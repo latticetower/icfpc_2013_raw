@@ -14,7 +14,11 @@ class EvalRequest
     @arguments = arguments
   end
   def to_json
-    {'id' => @id, 'program' => @program, 'arguments' => @arguments}.to_json
+    a = {}
+    a['id'] = @id if @id
+    a['program'] = @program if @program
+    a['arguments'] = @arguments if @arguments
+    a.to_json
   end
   
   def self.from_json string

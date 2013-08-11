@@ -10,7 +10,7 @@ require 'json'
 #     values?: string[];
 #    message?: string;
 #   }
-class Guess 
+class GuessResponse 
   attr_reader  :status, :values, :message
   def initialize(status, values, message)
     @status = status

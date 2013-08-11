@@ -4,8 +4,24 @@ require 'json'
 require "./train_request"
 require "./training_problem"
 require "./guess"
+require "./eval_request"
+require "./eval_response"
+require "./guess_response"
 
-def request_train_problem(size = 3, ops = '')
+
+def request_train_eval(id, challenge, arguments)
+  h = Net::HTTP.new('icfpc2013.cloudapp.net')
+  tr = EvalRequest.new(id, challenge, arguments)
+  resp = h.post('/eval?auth=00306ooBUr4BvTjTrWJJyZfHXbwBVU2kLk1cipuAvpsH1H', tr.to_json )
+  puts "Code = #{resp.code}"
+  puts "Message = #{resp.message}"
+  puts "returns = #{resp.body}"
+  tr2 = EvalResponse.from_json(resp.body)
+  yield tr2 if block_given?
+  tr2
+end
+
+def request_train_problem(size = 3, ops = [])
   h = Net::HTTP.new('icfpc2013.cloudapp.net')
   tr = TrainRequest.new(size, ops)
   resp = h.post('/train?auth=00306ooBUr4BvTjTrWJJyZfHXbwBVU2kLk1cipuAvpsH1H', tr.to_json )
@@ -26,7 +42,7 @@ def request_train_guess(id, program)
   puts "Message = #{resp.message}"
   puts "returns = #{resp.body}"
   yield resp if block_given?
-  resp
+  GuessResponse.from_json(resp.body)
 end
 
 def basic_training

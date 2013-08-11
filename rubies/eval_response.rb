@@ -6,7 +6,7 @@ require 'json'
 #     outputs?: string[];  
 #     message?: string;    
 #   }
-class EvalRequest 
+class EvalResponse
   attr_reader :status, :outputs, :message
   def initialize(status,outputs, message)
     @status = status
