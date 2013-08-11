@@ -13,44 +13,43 @@ BINARIES = ["and", "or", "xor", "plus"]
 
 module BinaryMethods
   def and_method(x, y)
-    x & y
+    (x & y).modulo(0x10000000000000000)
   end
   def or_method x, y
-    x | y
+    (x | y).modulo(0x10000000000000000)
   end
   def xor_method x, y
-    x ^ y
+    (x ^ y).modulo(0x10000000000000000)
   end
   def plus_method x, y
-    x + y
+    (x + y).modulo(0x10000000000000000)
   end
 end
 
 module UnaryMethods
   def not_method x
-    ~x
+    (~x).modulo(0x10000000000000000)
   end
   def shl1_method x
-    x << 1
+    (x << 1).modulo(0x10000000000000000)
   end
   def shr1_method x
-    x >> 1
+    (x >> 1).modulo(0x10000000000000000)
   end
   def shr4_method x
-    x >> 4
+    (x >> 4).modulo(0x10000000000000000)
   end
   def shr16_method x
-    x >> 16
+    (x >> 16).modulo(0x10000000000000000)
   end
 end
 module ComplexMethods
   def if0_method x, y, z
-    if x 
-      y 
+    if (x).modulo(0x10000000000000000)
+      (y).modulo(0x10000000000000000) 
     else 
-      z
+      (z).modulo(0x10000000000000000)
     end
-    z
   end
 end
 
@@ -79,7 +78,7 @@ class BasicEvaluator
 
   def valid?
      #vars = @formula.scan(/^\(\s*lambda\s*\(([a-z][a-z_0-9]*)\).*\)$/).flatten[0] 
-ff = formula.scan(/^\(\s*lambda\s*\([a-z][a-z_0-9]*\)\s*(.*)\)$/).flatten[0]
+    ff = formula.scan(/^\(\s*lambda\s*\([a-z][a-z_0-9]*\)\s*(.*)\)$/).flatten[0]
 
     check_formula2(ff)
   end
@@ -139,9 +138,6 @@ end
     ff = ff.gsub(subst_string3, '\k<f0>_method \k<f1>, \k<f2>, \k<f3>')
     "lambda{|#{vars}| #{ff}}"
   end
-
-  
-
 end
 
 #bb = BasicEvaluator.new("(lambda(x)(and (if0 x 1 0) (or (and x 1) 0)))")

@@ -13,12 +13,12 @@ require "./solver_functions"
 f = File.open('metadata.txt') 
 arr = f.gets #resp.body 
 #sleep(4.1)
-@arr = Problem.array_from_json(arr).select{|x| !x.solved && (x.time_left.nil? || x.time_left > 0) }
+@arr = Problem.array_from_json(arr, 9).select{|x| !x.solved && (x.time_left.nil? || x.time_left > 0) && (x.operators & ['fold', 'tfold']).size == 0 }
 
 p @arr.size
 counter = 0
 @arr.each do |problem|
-  if !problem.solved && (problem.time_left.nil? || problem.time_left>0)  && problem.operators.size < 3   
+  if !problem.solved && (problem.time_left.nil? || problem.time_left>0) # && problem.operators.size <= 3   
       #solve_for_operators_size4(problem) if problem.operators.size == 4 
        p "solving #{problem.id}"
        counter = counter + 1

@@ -79,13 +79,6 @@ def solve_and_send_to_server(problem)
         result = request_train_guess(problem.id, exp)
         p "REPLIT"
       end
-      #if result != "200"
-      #  puts 'ERROR ERROR'
-      #  puts problem.id
-      #  break
-      #end
-      #sleep(4.1)
-      
     end
 end
 
@@ -97,14 +90,7 @@ def solve_and_send_to_file(problem)
     solve_for_operators_with_conditional(problem) do |exp|
       be = BasicEvaluator.new(exp)
       c = be.calculate(0)
-      @data_array  << be
-      #if result != "200"
-      #  puts 'ERROR ERROR'
-      #  puts problem.id
-      #  break
-      #end
-      #sleep(4.1)
-      
+      @data_array  << be      
     end
 end
 
@@ -135,7 +121,12 @@ end
 
 @data_array.each do |func|
   r = request_train_guess(problem.id, func.formula)
+  break if r.nil?
+  if r.status == "win"
+    p "SOLVED"
+    break
+  end
 end
 
-be = BasicEvaluator.new("(lambda(x) " + build_string(['shr1', 'not', 'plus', 'x', 'x'])+")")
-p format_number(be.calculate(0))
+#be = BasicEvaluator.new("(lambda(x) " + build_string(['shr1', 'not', 'plus', 'x', 'x'])+")")
+#p format_number(be.calculate(0))
