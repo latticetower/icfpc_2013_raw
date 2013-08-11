@@ -43,7 +43,7 @@ def request_train_guess(id, program)
   puts "returns = #{resp.body}"
   yield resp if block_given?
   return nil if resp.code == "412" 
-  GuessResponse.from_json(resp.body)
+  resp
 end
 
 def basic_training

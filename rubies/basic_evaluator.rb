@@ -13,34 +13,34 @@ BINARIES = ["and", "or", "xor", "plus"]
 
 module BinaryMethods
   def and_method(x, y)
-    (x & y).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) & (y).modulo(0x10000000000000000)).modulo(0x10000000000000000)
   end
   def or_method x, y
-    (x | y).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) | (y).modulo(0x10000000000000000)).modulo(0x10000000000000000)
   end
   def xor_method x, y
-    (x ^ y).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) ^ (y).modulo(0x10000000000000000)).modulo(0x10000000000000000)
   end
   def plus_method x, y
-    (x + y).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) + (y).modulo(0x10000000000000000)).modulo(0x10000000000000000)
   end
 end
 
 module UnaryMethods
   def not_method x
-    (~x).modulo(0x10000000000000000)
+    (~(x).modulo(0x10000000000000000)).modulo(0x10000000000000000)
   end
   def shl1_method x
-    (x << 1).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) << 1).modulo(0x10000000000000000)
   end
   def shr1_method x
-    (x >> 1).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) >> 1).modulo(0x10000000000000000)
   end
   def shr4_method x
-    (x >> 4).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) >> 4).modulo(0x10000000000000000)
   end
   def shr16_method x
-    (x >> 16).modulo(0x10000000000000000)
+    ((x).modulo(0x10000000000000000) >> 16).modulo(0x10000000000000000)
   end
 end
 module ComplexMethods
@@ -68,9 +68,9 @@ class BasicEvaluator
       cde = processed_form
       instance_eval "@process_text='{#{cde}}'"
       instance_eval  "@process = #{cde}"
-      return @process.call(vector)
+      return @process.call(vector).modulo(0x10000000000000000)
     else
-      return @process.call(vector)
+      return @process.call(vector).modulo(0x10000000000000000)
     end
     nil
   end
